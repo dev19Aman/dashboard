@@ -5,7 +5,7 @@ import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
-
+import { TABLE_DATA } from "./SongData";
 const TableData = () => {
   const [isHovering, setIsHovering] = useState(false);
 
@@ -16,6 +16,8 @@ const TableData = () => {
   const handleMouseOut = () => {
     setIsHovering(false);
   };
+  console.log("table data--", TABLE_DATA);
+
   return (
     <Root>
       <table className="w-full" style={{ width: "100%" }}>
@@ -49,62 +51,65 @@ const TableData = () => {
             </th>
           </tr>
         </thead>
-        {/* {data.map((data: any) => ( */}
-        <tbody>
-          <tr
-            className="bg-transparent  transition duration-300 ease-in-out hover:bg-gray-600  cursor-auto"
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-          >
-            <td className="px-10 py-2 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
-              <Profile>
-                <span className="text-white">
-                  {isHovering ? (
-                    <PlayArrowRoundedIcon
-                      style={{ fontSize: "20px", color: "white" }}
+        {TABLE_DATA.map((data: any) => (
+          <tbody>
+            <tr
+              className="bg-transparent  transition duration-300 ease-in-out hover:bg-gray-600  cursor-auto"
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}
+            >
+              <td className="px-10 py-2 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
+                <Profile>
+                  <span className="text-white">
+                    1
+                    {/* {isHovering ? (
+                      <PlayArrowRoundedIcon
+                        style={{ fontSize: "20px", color: "white" }}
+                      />
+                    ) : (
+                      1
+                    )} */}
+                  </span>
+                  <ImageContainer>
+                    <img src="banner.jpg" className="" />
+                  </ImageContainer>
+                  <Info>
+                    <Title>{data.product.productName}</Title>
+                    <Pre className="hover:underline ">
+                      {data.product.singer}
+                    </Pre>
+                  </Info>
+                </Profile>
+              </td>
+              <td className="text-base text-gray-300 font-light px-14 py-4 whitespace-nowrap text-left ">
+                {data.album}
+              </td>
+              <td className="text-base text-gray-300 font-light px-14 py-4 whitespace-nowrap text-left">
+                {data.date}
+              </td>
+              <td className="text-base text-gray-300 font-light  px-8 py-4 whitespace-nowrap text-right  flex justify-end">
+                <div className="flex gap-6 ">
+                  {/* {isHovering ? (
+                    <FavoriteBorderRoundedIcon
+                      style={{ fontSize: "20px", color: "gray" }}
                     />
                   ) : (
-                    1
-                  )}
-                </span>
-                <ImageContainer>
-                  <img src="banner.jpg" className="" />
-                </ImageContainer>
-                <Info>
-                  <Title>Failing</Title>
-                  <Pre className="hover:underline ">Harry Styles</Pre>
-                </Info>
-              </Profile>
-            </td>
-            <td className="text-base text-gray-300 font-light px-14 py-4 whitespace-nowrap text-left ">
-              Fine Line
-            </td>
-            <td className="text-base text-gray-300 font-light px-14 py-4 whitespace-nowrap text-left">
-              4 Days Ago
-            </td>
-            <td className="text-base text-gray-300 font-light  px-8 py-4 whitespace-nowrap text-right  flex justify-end">
-              <div className="flex gap-6 ">
-                {isHovering ? (
-                  <FavoriteBorderRoundedIcon
-                    style={{ fontSize: "20px", color: "gray" }}
-                  />
-                ) : (
-                  ""
-                )}
+                    ""
+                  )} */}
 
-                <Title style={{ color: "white" }}>4:00</Title>
-                {isHovering ? (
-                  <MoreHorizOutlinedIcon
-                    style={{ fontSize: "20px", color: "gray" }}
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
-            </td>
-          </tr>
-       
-        </tbody>
+                  <Title style={{ color: "white" }}>{data.time}</Title>
+                  {/* {isHovering ? (
+                    <MoreHorizOutlinedIcon
+                      style={{ fontSize: "20px", color: "gray" }}
+                    />
+                  ) : (
+                    ""
+                  )} */}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        ))}
       </table>
     </Root>
   );
@@ -113,7 +118,7 @@ const TableData = () => {
 export default TableData;
 
 const Root = styled.div`
-  width: 80vw;
+  width: 85vw;
 `;
 const Profile = styled.div`
   display: flex;
@@ -141,21 +146,4 @@ const Title = styled.h2`
   color: white;
   font-size: 18px;
   font-weight: 500;
-`;
-
-/* ${props=>props.} */
-const ActionButton = styled.button`
-  margin-top: 9px;
-  padding: 0px 10px;
-  background: #c1c2ff;
-  height: 24px;
-  border-radius: 7px;
-  box-shadow: 20px;
-  color: #696cff;
-  cursor: pointer;
-  outline: 0;
-  font-weight: 700;
-  :hover {
-    opacity: 0.8;
-  }
 `;

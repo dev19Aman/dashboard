@@ -53,11 +53,11 @@ const Table = () => {
       </IconButton>
         </ImageContainer>
         {/* Table Control */}
-       <TableContainer>
-    <TableData/>
-       </TableContainer>
       </div>
     </Container>
+    <TableContainer >
+    <TableData/>
+       </TableContainer>
     </Root>
 
   );
