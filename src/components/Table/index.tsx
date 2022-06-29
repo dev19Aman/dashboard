@@ -12,18 +12,17 @@ const Table = () => {
       <div className=" ">
         <ImageContainer>
         <IconButton
-        // onClick={handleToggle}
-        aria-label="delete"
-        color="inherit"
-        style={{
-          color: "currentColor",
-          borderRadius: "full",
-          backgroundColor: "rgb(30,215,96)",
-          width: "60px",
-          height: "60px",
+           aria-label="delete"
+           color="inherit"
+           style={{
+             color: "currentColor",
+             borderRadius: "full",
+             backgroundColor: "rgb(30,215,96)",
+              width: "60px",
+              height: "60px",
         }}
       >
-        <PlayArrowRoundedIcon style={{ fontSize:"40px", color: "black" }} />
+        <PlayArrowRoundedIcon style={{ fontSize:"40px", color: "white" }} />
       </IconButton>
       <IconButton
         // onClick={handleToggle}
@@ -56,7 +55,7 @@ const Table = () => {
       </div>
     </Container>
     <TableContainer >
-    <TableData/>
+    <TableData />
        </TableContainer>
     </Root>
 

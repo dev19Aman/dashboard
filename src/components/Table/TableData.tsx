@@ -1,27 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "@emotion/styled";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
-import { TABLE_DATA } from "./SongData";
-const TableData = () => {
-  const [isHovering, setIsHovering] = useState(false);
+import { log } from "console";
+import useMusicPlayer from "../../hooks/useSongPlayer";
 
-  const handleMouseOver = () => {
-    setIsHovering(true);
-    console.log("working");
-  };
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
-  console.log("table data--", TABLE_DATA);
+const TableData = ({setActive}:any) => {
+  // const {songs,setSongs,active,setActive} = useContext(SongContext)
+  const music = useMusicPlayer();
+
+
 
   return (
     <Root>
-      <table className="w-full" style={{ width: "100%" }}>
-        <thead className="bg-transparent border-b border-gray-600 text-left">
+      <table className="w-full">
+        <thead className="bg-tabletheme border-b border-gray-600 text-left sticky top-0 ">
           <tr>
             <th
               scope="col"
@@ -51,65 +47,53 @@ const TableData = () => {
             </th>
           </tr>
         </thead>
-        {TABLE_DATA.map((data: any) => (
-          <tbody>
-            <tr
-              className="bg-transparent  transition duration-300 ease-in-out hover:bg-gray-600  cursor-auto"
-              onMouseOver={handleMouseOver}
-              onMouseOut={handleMouseOut}
-            >
+
+          <tbody  className=""
+          style={{marginTop:"100px"}}>
+          {music.trackList.map((track:any,index:any) => (
+            
+            <tr className="checkCLass bg-transparent  rounded-xl hover:bg-gray-600 cursor-auto" onDoubleClick={() => music.playTrack(index,track)}
+            key={track.id}
+           >
               <td className="px-10 py-2 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
                 <Profile>
-                  <span className="text-white">
-                    1
-                    {/* {isHovering ? (
-                      <PlayArrowRoundedIcon
-                        style={{ fontSize: "20px", color: "white" }}
-                      />
-                    ) : (
-                      1
-                    )} */}
+                  {/* <span className="text-white childClass" > */}
+                  {music.isPlaying && music.currentTrackIndex === index ? (
+                  <span className="text-white " >
+                    <PlayArrowRoundedIcon
+                    style={{ fontSize: "20px", color: "white"}}
+                  />
                   </span>
+                    ) : (
+                      <span className="text-white childClass">
+                      {track.id}
+                      </span>
+                    )}
                   <ImageContainer>
-                    <img src="banner.jpg" className="" />
+                    <img src={track.src} className="" />
                   </ImageContainer>
                   <Info>
-                    <Title>{data.product.productName}</Title>
-                    <Pre className="hover:underline ">
-                      {data.product.singer}
+                    <Title>{track.title}</Title>
+                    <Pre className="hover:underline">
+                      {track.name}
                     </Pre>
                   </Info>
                 </Profile>
               </td>
               <td className="text-base text-gray-300 font-light px-14 py-4 whitespace-nowrap text-left ">
-                {data.album}
+                {track.name}
               </td>
               <td className="text-base text-gray-300 font-light px-14 py-4 whitespace-nowrap text-left">
-                {data.date}
+                {track.dateAdded}
               </td>
               <td className="text-base text-gray-300 font-light  px-8 py-4 whitespace-nowrap text-right  flex justify-end">
                 <div className="flex gap-6 ">
-                  {/* {isHovering ? (
-                    <FavoriteBorderRoundedIcon
-                      style={{ fontSize: "20px", color: "gray" }}
-                    />
-                  ) : (
-                    ""
-                  )} */}
-
-                  <Title style={{ color: "white" }}>{data.time}</Title>
-                  {/* {isHovering ? (
-                    <MoreHorizOutlinedIcon
-                      style={{ fontSize: "20px", color: "gray" }}
-                    />
-                  ) : (
-                    ""
-                  )} */}
+                  <Title style={{ color: "white" }}>{track.time}</Title>
                 </div>
               </td>
             </tr>
-          </tbody>
         ))}
+          </tbody>
       </table>
     </Root>
   );
@@ -118,7 +102,13 @@ const TableData = () => {
 export default TableData;
 
 const Root = styled.div`
-  width: 85vw;
+  width: 84vw;
+  .childClass {
+    opacity: 0;
+  }
+  .checkCLass:hover .childClass {
+    opacity: 1;
+  }
 `;
 const Profile = styled.div`
   display: flex;
@@ -147,3 +137,4 @@ const Title = styled.h2`
   font-size: 18px;
   font-weight: 500;
 `;
+

@@ -1,19 +1,22 @@
 import styled from "@emotion/styled";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import PhotoSizeSelectActualOutlinedIcon from "@mui/icons-material/PhotoSizeSelectActualOutlined";
-import Stack from "@mui/material/Stack";
 import Slider from "@mui/material/Slider";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import MicIcon from "@mui/icons-material/Mic";
 import ListIcon from "@mui/icons-material/List";
-import { useState } from "react";
+import IconButton from "@mui/material/IconButton";
+import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import { useContext, useEffect, useState } from "react";
+import useMusicPlayer from "../../hooks/useSongPlayer";
+import PauseIcon from '@mui/icons-material/Pause';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
 
 const Footer = () => {
-  const [value, setValue] = useState(30);
-
-  const handleChange = () => {
-    //   setValue();
-  };
+  // const [title, setTitle] = useState("");
+  // const [name, setName] = useState("");
+  const music = useMusicPlayer()
   return (
     <div
       className="bg-black
@@ -29,8 +32,8 @@ const Footer = () => {
             <img src="banner.jpg" className="" />
           </ImageContainer>
           <Info>
-            <Title>Gone</Title>
-            <Pre className="hover:underline ">Malika Rose</Pre>
+            <Title>{music?music.currentTrackTitle:"play"}</Title>
+            <Pre className="hover:underline ">{music?music.currentTrackName:"play"}</Pre>
           </Info>
           <div className="flex gap-4 pl-5">
             <FavoriteBorderRoundedIcon
@@ -55,34 +58,75 @@ const Footer = () => {
               </svg>
             </div>
             <div className="text-grey-darker">
-              <svg
-                className="w-5 h-5"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
+            <IconButton
+                // onClick={handleToggle}
+                aria-label="delete"
+                color="inherit"
+                style={{
+                  color: "currentColor",
+                  width: "20px",
+                  height: "20px",
+                  marginBottom: "5px",
+                 
+                }}
               >
-                <path d="M4 5h3v10H4V5zm12 0v10l-9-5 9-5z" />
-              </svg>
+                <button  onClick={music.playPreviousTrack}>
+                <SkipPreviousIcon
+                  style={{ fontSize: "20px", color: "white" }}
+                  />
+                  </button>
+              </IconButton>
             </div>
             <div className="text-white p-8 rounded-full bg-red-light shadow-lg">
-              <svg
-                className="w-5 h-5"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
+              <IconButton
+                // onClick={handleToggle}
+                aria-label="delete"
+                color="inherit"
+                style={{
+                  color: "currentColor",
+                  borderRadius: "full",
+                  backgroundColor: "rgb(30,215,96)",
+                  width: "20px",
+                  height: "20px",
+                  marginBottom: "5px",
+                }}
               >
-                <path d="M5 4h3v12H5V4zm7 0h3v12h-3V4z" />
-              </svg>
+                  <button
+            className="button has-text-light has-background-grey-dark"
+            onClick={music.togglePlay}
+          >
+            {music.isPlaying ? (
+               <PauseIcon
+               style={{ fontSize: "15px", color: "white",marginBottom:"5px" }}
+             />
+            ) : (
+              <PlayArrowRoundedIcon
+                  style={{ fontSize: "15px", color: "white",marginBottom:"5px" }}
+                />
+            )}
+          </button>
+                
+              </IconButton>
             </div>
             <div className="text-grey-darker">
-              <svg
-                className="w-5 h-5"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
+            <IconButton
+                // onClick={handleToggle}
+                aria-label="delete"
+                color="inherit"
+                style={{
+                  color: "currentColor",
+                  width: "20px",
+                  height: "20px",
+                  marginBottom: "5px",
+                 
+                }}
               >
-                <path d="M13 5h3v10h-3V5zM4 5l9 5-9 5V5z" />
-              </svg>
+                <button  onClick={music.playNextTrack}>
+                <SkipNextIcon
+                  style={{ fontSize: "20px", color: "white" }}
+                  />
+                  </button>
+              </IconButton>
             </div>
             <div className="text-grey-darker">
               <svg
